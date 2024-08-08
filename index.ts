@@ -3,7 +3,7 @@ import { spawnSync } from "child_process";
 import fs from "fs";
 
 async function sample() {
-  let f = "/Users/dietrich/tmp/rpx/demo";
+  let f = `${process.cwd()}/demo`;
   for (let i = 0; i < 1000; i++) {
     spawnSync("touch", [`${f.toString()}/test_${i}.txt`]);
   }
@@ -14,7 +14,7 @@ async function sample() {
  });
   let counter = 0;
   let subscription = await ParcelWatcher.subscribe(
-    "/Users/dietrich/tmp/rpx/demo",
+    f,
     (err, events) => {
       for (let event of events) {
         // console.log(event);
