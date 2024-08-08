@@ -1,5 +1,6 @@
 import ParcelWatcher from "@parcel/watcher";
 import { spawnSync } from "child_process";
+import fs from "fs";
 
 async function sample() {
   let f = "/Users/dietrich/tmp/rpx/demo";
@@ -7,6 +8,10 @@ async function sample() {
     spawnSync("touch", [`${f.toString()}/test_${i}.txt`]);
   }
   await new Promise((resolve) => setTimeout(resolve, 200));
+  fs.readdir( f, (error, files) => { 
+    let totalFiles = files.length;
+    console.log(totalFiles); // 1000 + 1
+ });
   let counter = 0;
   let subscription = await ParcelWatcher.subscribe(
     "/Users/dietrich/tmp/rpx/demo",
