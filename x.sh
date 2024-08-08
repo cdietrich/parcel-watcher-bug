@@ -1,1 +1,0 @@
-find demo -type f -name "*.txt" | xargs rm

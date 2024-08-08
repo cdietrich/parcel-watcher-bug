@@ -1,11 +1,10 @@
 import ParcelWatcher from "@parcel/watcher";
-import { spawnSync } from "child_process";
 import fs from "fs";
 
 async function sample() {
   let f = `${process.cwd()}/demo`;
   for (let i = 0; i < 1000; i++) {
-    spawnSync("touch", [`${f.toString()}/test_${i}.txt`]);
+    fs.writeFileSync(`${f.toString()}/test_${i}.txt`,"")
   }
   await new Promise((resolve) => setTimeout(resolve, 200));
   fs.readdir( f, (error, files) => { 
@@ -23,7 +22,9 @@ async function sample() {
     }
   );
 
-  spawnSync("sh", [`${f.toString()}/../x.sh`]);
+  for (let i = 0; i < 1000; i++) {
+    fs.unlinkSync(`${f.toString()}/test_${i}.txt`)
+  }
   await new Promise((resolve) => setTimeout(resolve, 5000));
   fs.readdir( f, (error, files) => { 
     let totalFiles = files.length;
