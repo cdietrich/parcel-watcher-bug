@@ -25,6 +25,10 @@ async function sample() {
 
   spawnSync("sh", [`${f.toString()}/../x.sh`]);
   await new Promise((resolve) => setTimeout(resolve, 5000));
+  fs.readdir( f, (error, files) => { 
+    let totalFiles = files.length;
+    console.log(totalFiles); // 1
+ });
   console.log("counter", counter);
 
   subscription.unsubscribe();
